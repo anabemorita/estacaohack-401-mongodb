@@ -71,6 +71,21 @@ app.put('/churro/:id', (req,res) => {
     });
 });
 
+app.delete('/churro/:id', (req, res) => {
+    let query = {
+        _id: ObjectID(req.params.id)
+    };
+
+    req.db.collection('sabores').deleteOne(query, (err, data) => {
+        if(err){
+            res.status(500).send();
+            return;
+        }
+
+        res.send(data);
+    });
+});
+
 app.post('/churro', (req,res) => {
     req.db.collection('sabores').insert(req.body, (err) =>{
         if(err){
